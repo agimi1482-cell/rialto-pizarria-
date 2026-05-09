@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rialto Pizzeria - Tienen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #C41E3A;
+            --dark-red: #8B0000;
+            --gold: #D4AF37;
+            --cream: #FFF8E7;
+            --dark: #1a1a1a;
+            --brick: #8B4513;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26,26,26,0.85) 0%, rgba(139,0,0,0.7) 100%),
+                        url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1920') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-subtitle {
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--cream);
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: rgba(255,248,231,0.8);
+            font-weight: 300;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--gold);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--cream);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            border: 3px solid var(--gold);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dark-red);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Menu Section */
+        .menu {
+            background: linear-gradient(to bottom, #1a1a1a 0%, #2d2d2d 100%);
+            color: var(--cream);
+        }
+
+        .menu .section-title {
+            color: var(--cream);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .menu-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .menu-card-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover .menu-card-image img {
+            transform: scale(1.1);
+        }
+
+        .menu-card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 5px 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 20px;
+        }
+
+        .menu-card-content {
+            padding: 25px;
+        }
+
+        .menu-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--cream);
+        }
+
+        .menu-card-desc {
+            font-size: 0.95rem;
+            color: rgba(255,248,231,0.7);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .menu-card-price {
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* Hours & Info Section */
+        .info-section {
+            background: var(--cream);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-red);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-red);
+        }
+
+        .info-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .hours-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            font-size: 0.95rem;
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .day {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .time {
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+
+        .closed {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: var(--dark);
+            padding: 80px 20px;
+        }
+
+        .gallery .section-title {
+            color: var(--cream);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.15);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(196,30,58,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: #111;
+            color: var(--cream);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-brand h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,248,231,0.6);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-links h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,248,231,0.6);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,248,231,0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255,248,231,0.4);
+            font-size: 0.85rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">RIALTO</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Over Ons</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#info">Info</a></li>
+                <li><a href="#gallery">Galerij</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-subtitle">Authentiek Italiaans</p>
+            <h1 class="hero-title">RIALTO PIZZERIA</h1>
+            <p class="hero-tagline">"Waar traditie smaak ontmoet"</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">Bekijk Menu</a>
+                <a href="tel:+3216811111" class="btn btn-outline">Bel Nu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header fade-in">
+                <p class="section-label">Ons Verhaal</p>
+                <h2 class="section-title">Over Rialto</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800" alt="Rialto Restaurant Interior">
+                </div>
+                <div class="about-text fade-in">
+                    <h3>Een Familie Traditie sinds Generaties</h3>
+                    <p>Gelegen aan de Leuvenselaan 111A in het hart van Tienen, is Rialto Pizzeria al jarenlang dé bestemming voor liefhebbers van authentieke Italiaanse keuken. Ons restaurant combineert de warmte van traditionele Italiaanse gastvrijheid met de rijke smaken van ons vaderland.</p>
+                    <p>Onze pizza's worden bereid volgens oude familierecepten, met vers deeg dat dagelijks met de hand wordt gekneed en toppings van de hoogste kwaliteit. Van klassieke Margherita tot onze specialiteiten — elke hap vertelt een verhaal.</p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">🍕</div>
+                            <div>
+                                <strong>Authentiek</strong><br>
+                                <small>Italiaanse recepten</small>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🌿</div>
+                            <div>
+                                <strong>Verse</strong><br>
+                                <small>Ingredienten dagelijks</small>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🔥</div>
+                            <div>
+                                <strong>Traditioneel</strong><br>
+                                <small>Houtoven gebakken</small>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">❤️</div>
+                            <div>
+                                <strong>Met Liefde</strong><br>
+                                <small>Familie bereid</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-header fade-in">
+                <p class="section-label">Onze Specialiteiten</p>
+                <h2 class="section-title">Het Menu</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-card fade-in">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600" alt="Pizza Margherita">
+                        <span class="menu-card-badge">Klassiek</span>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title">Pizza Margherita</h3>
+                        <p class="menu-card-desc">Onze signature pizza met romige mozzarella, verse basilicum en rijke tomatensaus op een knapperige korst.</p>
+                        <p class="menu-card-price">€9,50</p>
+                    </div>
+                </div>
+                <div class="menu-card fade-in">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600" alt="Pizza Pepperoni">
+                        <span class="menu-card-badge">Populair</span>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title">Pizza Diavola</h3>
+                        <p class="menu-card-desc">Pittige salami, jalapeños, mozzarella en onze huisgemaakte pikante tomatensaus voor de durfal.</p>
+                        <p class="menu-card-price">€12,00</p>
+                    </div>
+                </div>
+                <div class="menu-card fade-in">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600" alt="Pizza Quattro Formaggi">
+                        <span class="menu-card-badge">Specialiteit</span>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title">Quattro Formaggi</h3>
+                        <p class="menu-card-desc">Een hemelse combinatie van mozzarella, gorgonzola, parmezaan en ricotta op een goudgele korst.</p>
+                        <p class="menu-card-price">€13,50</p>
+                    </div>
+                </div>
+                <div class="menu-card fade-in">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?w=600" alt="Pasta Carbonara">
+                        <span class="menu-card-badge">Pasta</span>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title">Spaghetti Carbonara</h3>
+                        <p class="menu-card-desc">Romige carbonara met pancetta, ei, pecorino en versgemalen zwarte peper — puur Romeins genot.</p>
+                        <p class="menu-card-price">€14,00</p>
+                    </div>
+                </div>
+                <div class="menu-card fade-in">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600" alt="Lasagna">
+                        <span class="menu-card-badge">Huisgemaakt</span>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title">Lasagna al Forno</h3>
+                        <p class="menu-card-desc">Lagen van vers deeg, rijke bolognesesaus, bechamel en gouden kaas — langzaam gebakken tot perfectie.</p>
+                        <p class="menu-card-price">€15,00</p>
+                    </div>
+                </div>
+                <div class="menu-card fade-in">
+                    <div class="menu-card-image">
+                        <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600" alt="Tiramisu">
+                        <span class="menu-card-badge">Dessert</span>
+                    </div>
+                    <div class="menu-card-content">
+                        <h3 class="menu-card-title">Tiramisu Classico</h3>
+                        <p class="menu-card-desc">Ons huisgemaakte tiramisu met mascarpone, espresso en een vleugje amaretto — de perfecte afsluiter.</p>
+                        <p class="menu-card-price">€7,50</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section" id="info">
+        <div class="container">
+            <div class="section-header fade-in">
+                <p class="section-label">Bezoek Ons</p>
+                <h2 class="section-title">Openingsuren & Info</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="info-grid">
+                <div class="info-card fade-in">
+                    <div class="info-icon">🕐</div>
+                    <h3>Openingsuren</h3>
+                    <ul class="hours-list">
+                        <li><span class="day">Maandag</span><span class="time">11:30 - 14:00</span></li>
+                        <li><span class="day">Dinsdag</span><span class="closed">Gesloten</span></li>
+                        <li><span class="day">Woensdag</span><span class="closed">Gesloten</span></li>
+                        <li><span class="day">Donderdag</span><span class="time">17:30 - 22:30</span></li>
+                        <li><span class="day">Vrijdag</span><span class="time">17:30 - 22:30</span></li>
+                        <li><span class="day">Zaterdag</span><span class="time">17:30 - 22:30</span></li>
+                        <li><span class="day">Zondag</span><span class="time">17:30 - 22:30</span></li>
+                    </ul>
+                </div>
+                <div class="info-card fade-in">
+                    <div class="info-icon">📍</div>
+                    <h3>Adres</h3>
+                    <p>
+                        <strong>Leuvenselaan 111A</strong><br>
+                        3300 Tienen<br>
+                        België<br><br>
+                        <strong>Telefoon:</strong><br>
+                        +32 16 81 11 11<br><br>
+                        <strong>Email:</strong><br>
+                        info@rialto-tienen.be
+                    </p>
+                </div>
+                <div class="info-card fade-in">
+                    <div class="info-icon">🚗</div>
+                    <h3>Service</h3>
+                    <p>
+                        <strong>Afhalen</strong><br>
+                        Bestel telefonisch en haal warm op<br><br>
+                        <strong>Ter Plaatse</strong><br>
+                        Gezellig dineren in ons restaurant<br><br>
+                        <strong>Groepen</strong><br>
+                        Reserveren voor groepen mogelijk
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="section-header fade-in">
+            <p class="section-label">Sfeerbeelden</p>
+            <h2 class="section-title">Galerij</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" alt="Pizza Oven">
+                <div class="gallery-overlay"><span>Authentiek</span></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400" alt="Restaurant Interior">
+                <div class="gallery-overlay"><span>Gezellig</span></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400" alt="Fresh Ingredients">
+                <div class="gallery-overlay"><span>Vers</span></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400" alt="Fine Dining">
+                <div class="gallery-overlay"><span>Kwaliteit</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>RIALTO PIZZERIA</h2>
+                <p>Authentieke Italiaanse keuken in het hart van Tienen. Al generaties lang brengen wij de smaken van Italië naar uw bord. Kom langs en ervaar de warmte van onze familie-keuken.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Snelle Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#info">Openingsuren</a></li>
+                    <li><a href="#gallery">Galerij</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="https://maps.google.com/?q=Leuvenselaan+111A+Tienen">Leuvenselaan 111A, 3300 Tienen</a></li>
+                    <li><a href="tel:+3216811111">+32 16 81 11 11</a></li>
+                    <li><a href="mailto:info@rialto-tienen.be">info@rialto-tienen.be</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Rialto Pizzeria Tienen. Alle rechten voorbehouden. | Authentiek Italiaans genot aan de Leuvenselaan.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.background = 'rgba(26,26,26,0.98)';
+                navLinks.style.padding = '20px';
+                navLinks.style.gap = '20px';
+            }
+        });
+    </script>
+</body>
+</html>
